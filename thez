@@ -1,0 +1,27 @@
+thez=thez
+ver=1.0 (noconfig)
+if ! command -v git &> /dev/null
+then
+    echo "Install GIT"
+    echo if install fail First use apt update
+    sleep 0.7
+    apt install git -y
+fi
+if ! command -v proot &> /dev/null
+then
+    echo "Install PROOT"
+    apt install proot -y
+fi
+space()
+{
+echo 
+}
+usage()
+{
+echo -ne """   command $1 not found
+   Usage: $thez <COMMAND> <OPTION>
+     COMMAND:
+     ver, --show-ver      print $thez version
+     run,  --running      running command from github """
+space
+}
