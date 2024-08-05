@@ -1,5 +1,10 @@
+#configure#
+workdir="~/.thez"
+###########
+###
 thez="thez"
 ver="1.0 (noconfig)"
+cd $workdir ||exittext $workdir not found enter command *$thez changedir*
 if ! command -v git &> /dev/null
 then
     echo "Install GIT"
@@ -12,10 +17,12 @@ then
     echo "Install PROOT"
     apt install proot -y
 fi
+#####
 space()
 {
 echo 
 }
+#####
 help()
 {
 echo -ne """     Usage: $thez <COMMAND> <OPTION>
@@ -25,15 +32,34 @@ echo -ne """     Usage: $thez <COMMAND> <OPTION>
      run,  --running      running command from github """
 space
 }
+#####
 usage()
 {
 echo "Command $1 Not found"
 help
 }
+#####
+gitclone()
+{
+fol=`echo $1 |grep -oP '(?<=/).*'`
+if [ -e $fol ]
+then echo $fol exist ; exit
+fi
+echo clone $1
+git clone https://github.com/"$1" &>/dev/null 2>&1
+if [ ! -d $fol ];then echo clone fail ; exit;fi
+cd $fol
+#####
+exitext()
+{
+echo $@
+exit
+}
+#####
 case $1 in
    -h|--help|help)help;;
    ver) echo $ver;;
+   clone) gitclone
    *)usage $1;;
-  " ") help;;
+   "") help;;
 esac
-   
