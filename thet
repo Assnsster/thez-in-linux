@@ -39,7 +39,7 @@ runz()
 {
 git clone https://github.com/"$1" &>/dev/null || echo Git Clone Fail && exit
 echo git clone success
-fol=`echo $1 | sed  's#/.##g'`
+fol=`echo $1 |grep -oP '(?<=/).*'`
 cd $fol
 }
 
