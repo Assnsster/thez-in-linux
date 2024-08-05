@@ -4,7 +4,12 @@ workdir="~/.thez"
 ###
 thez="thez"
 ver="1.0 (noconfig)"
-cd $workdir ||exittext $workdir not found enter command *$thez changedir*
+exitext()
+{
+echo $@
+exit
+}
+cd $workdir &>/dev/null||exittext $workdir not found enter command *$thez changedir*
 if ! command -v git &> /dev/null
 then
     echo "Install GIT"
@@ -50,11 +55,6 @@ git clone https://github.com/"$1" &>/dev/null 2>&1
 if [ ! -d $fol ];then echo clone fail ; exit;fi
 cd $fol
 #####
-exitext()
-{
-echo $@
-exit
-}
 #####
 case $1 in
    -h|--help|help)help;;
