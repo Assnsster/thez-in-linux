@@ -15,7 +15,7 @@ then
     sleep 0.7
     mkdir ~/thez
 fi
-cd $workdir &>/dev/null||exittext $workdir not found enter command *$thez changedir*
+cd $workdir &>/dev/null||exitext $workdir not found enter command *$thez changedir*
 if ! command -v git &> /dev/null
 then
     echo "Install GIT"
