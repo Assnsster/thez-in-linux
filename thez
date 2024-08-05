@@ -1,5 +1,5 @@
-thez=thez
-ver=1.0 (noconfig)
+thez="thez"
+ver="1.0 (noconfig)"
 if ! command -v git &> /dev/null
 then
     echo "Install GIT"
@@ -16,12 +16,22 @@ space()
 {
 echo 
 }
-usage()
+help()
 {
-echo -ne """   command $1 not found
-   Usage: $thez <COMMAND> <OPTION>
+echo -ne """     Usage: $thez <COMMAND> <OPTION>
      COMMAND:
+     -h,  --help          Help
      ver, --show-ver      print $thez version
      run,  --running      running command from github """
 space
 }
+usage()
+{
+echo "Command $1 Not found"
+}
+case $1 in
+   -h|--help|help)help;;
+   ver) echo $ver;;
+   *)usage;;
+esac
+   
