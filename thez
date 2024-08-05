@@ -28,10 +28,12 @@ space
 usage()
 {
 echo "Command $1 Not found"
+help
 }
 case $1 in
    -h|--help|help)help;;
    ver) echo $ver;;
-   *)usage;;
+   *)usage $1;;
+  " ") help;;
 esac
    
