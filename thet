@@ -1,5 +1,9 @@
 thez="thez"
 ver="1.0 (noconfig)"
+if ! command -v apt &> /dev/null
+then
+echo $thez is only for ubuntu and debian, some other linux distros may run with errors.
+fi
 if ! command -v git &> /dev/null
 then
     echo "Install GIT"
@@ -30,10 +34,19 @@ usage()
 echo "Command $1 Not found"
 help
 }
+
+runz()
+{
+git clone https://github.com/"$1" &>/dev/null || echo Git Clone Fail && exit
+echo git clone success
+fol=`echo $1 | sed  's#/.##g'`
+cd $fol
+}
+
 case $1 in
    -h|--help|help)help;;
    ver) echo $ver;;
    *)usage $1;;
-  " ") help;;
+   " ") help;;
 esac
    
