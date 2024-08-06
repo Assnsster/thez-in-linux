@@ -21,12 +21,12 @@ then
     echo "Install GIT"
     echo if install fail First use apt update
     sleep 0.7
-    apt install git -y
+    apt install git -y || exitext FAIL TO INSTALL GIT
 fi
 if ! command -v proot &> /dev/null
 then
     echo "Install PROOT"
-    apt install proot -y
+    apt install proot -y ||exitext FAIL TO INSTALL PROOT
 fi
 #####
 space()
