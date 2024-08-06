@@ -1,0 +1,12 @@
+
+apt update -y
+echo qemu-check...
+if ! command -v qemu-system-x86_64
+  then
+   apt install -y qemu-system -y
+elif ! command -v qemu-system-x86_64
+  then
+   apt install -y qemu-system -y
+fi
+  wget $1 -O win.
+  
