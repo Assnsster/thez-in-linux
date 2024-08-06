@@ -1,0 +1,103 @@
+#!/bin/bash
+#configure#
+workdir=~/.thez
+###########
+###
+thez="thez"
+ver="1.0 (noconfig)|thez"
+exitext()
+{
+echo $@
+exit
+}
+if [ ! -d $workdir ]
+then
+    echo create workdir main
+    sleep 0.7
+    mkdir $workdir || exitext mkdir fail
+fi
+if ! command -v git &> /dev/null
+then
+    echo "Install GIT"
+    echo if install fail First use apt update
+    sleep 0.7
+    apt install git -y
+fi
+if ! command -v proot &> /dev/null
+then
+    echo "Install PROOT"
+    apt install proot -y
+fi
+#####
+space()
+{
+echo 
+}
+#####
+help()
+{
+echo -ne """     Usage: $thez <COMMAND> <OPTION>
+     COMMAND:
+     -h,  --help          Help
+     swd, --show-workdir  show workdir
+     clone, --clone       clone git repo
+     ver, --show-ver      print $thez version
+     run,  --running      running command from file thezkg"""
+space
+}
+
+clonehelp()
+{
+echo """     Usage: clone <option> <usrname>/<repository>
+     OPTION:
+     -h,   --help         Help
+     
+  NOTE: cannot clone with url """
+exit
+}
+#####
+usage()
+{
+echo "Command $1 Not found"
+help
+}
+#####
+gitclone()
+{
+case $1 in
+-h|--help|help)clonehelp;;
+"") clonehelp;;
+esac
+fol=`echo $1 |grep -oP '(?<=/).*'`
+if [ -e $fol ]
+then echo $fol exist ; exit
+fi
+echo clone $1
+echo " clone..."
+git clone https://github.com/"$1" &>/dev/null 2>&1
+if [ ! -d $fol ];then echo clone fail ; exit;fi
+cd $fol
+}
+run()
+{
+if [ -d thezkg ]
+then echo thezkg is directory;exit
+fi
+if [ -f thezkg ]
+then
+bash thezkg $@
+else
+echo thezkg not found;exit
+fi
+}
+#####
+#####
+case $1 in
+   -h|--help|help)help;;
+   ver) echo $ver;;
+   clone)shift 1; gitclone $@;;
+   swd|--show-workdir) echo $workdir;;
+   run) shift 1 ;run $@;;
+   *)usage $1;;
+   " ")help;;
+esac
