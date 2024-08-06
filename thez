@@ -1,3 +1,4 @@
+#plsrunasroot
 #!/bin/bash
 #configure#
 workdir=~/.thez
